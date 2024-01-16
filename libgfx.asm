@@ -19,6 +19,7 @@ public CharLine     ; DX>>
 public WaitKey      ; >>userinput
 public PeekKey      ; >>userinput
 public PaintPxl     ; cCX, cDx, col>>
+public ReadPxl      ; >> rdcol
 public BigPixl      ; cCX, cDx, col>>
 public sleep        ; tempo>>
 public FillShape    ; CX, DX>>
@@ -31,6 +32,7 @@ public drawIconBig  ; hX, hY, BX>>
 ;==== exported variables ====
 public userinput ; <<kbhit
 public col       ; >>PaintPxl
+public rdcol     ; 
 public cCX
 public cDX
 public Rx		 ; >>Rectangle, etc.
@@ -49,6 +51,8 @@ userinput DB 0   ; hit key
 cCX       DW 0	 ; X courant
 cDX       DW 0	 ; Y courant
 col       DB 0   ; color
+; sortie sub readPxl====================
+rdcol     DB 0   ; pixel color
 ; parametres sub Sleep=======================
 tempo     DW 0   ; duree 
 ; parametres sub drawIcon====================
@@ -144,6 +148,14 @@ PaintPxl:
 	mov DX, cDX
 	mov AL, col
     int 10h
+    ret
+;------------Sub ReadPxl-------------
+ReadPxl:
+    mov AH, 0Dh
+	mov CX, cCX		; nouveau
+	mov DX, cDX
+    int 10h
+	mov rdcol, AL
     ret
 ;------------sleep routine -------------
 ; << tempo

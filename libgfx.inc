@@ -3,9 +3,6 @@
 ; =======================================
 ; Librairie de dessin v 2.3 
 
-; << = parametre d'entrée
-; >> = parametre de sortie
-
 ;==== exported functions ====
 extrn Video13h:near
 extrn VideoVGA:near      
@@ -15,6 +12,7 @@ extrn CharLine:near     ; DX>>
 extrn WaitKey:near      ; >>userinput
 extrn PeekKey:near      ; >>userinput
 extrn PaintPxl:near     ; cCX, cDx, col>>
+extrn ReadPxl:near      ; cCX, cDx, >> rdcol
 extrn BigPixl:near      ; cCX, cDx, col>>
 extrn sleep:near        ; tempo>>
 extrn FillShape:near    ; CX, DX>>
@@ -27,6 +25,7 @@ extrn drawIconBig:near  ; hX, hY, BX>>
 ;==== exported variables ====
 extrn userinput:byte ; <<WaitKey, PeekKey
 extrn col:byte       ; >>PaintPxl
+extrn rdcol:byte     ; <<ReadPxl
 extrn cCX:word       ;    "
 extrn cDX:word       ;    "
 extrn Rx:word		 ; >>Rectangle, fillRect
