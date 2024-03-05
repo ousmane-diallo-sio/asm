@@ -20,6 +20,9 @@ donnees segment public  ; ******* Segment de donnees **********
 
 extrn splash:word
 extrn map:word
+extrn carMiddle:word
+extrn carRight:word
+extrn carLeft:word
 
 ; +++++++++++++++++++++++++++++++++++++++++++++
 ;               VARIABLES
@@ -78,15 +81,12 @@ gameloop:
 ; =============================
 ;--------- drawMap ------------
 drawMap:
-    mov BX, offset map
+    mov BX, offset carMiddle
     call drawIcon
     ret
 
 ;--------- drawCar ------------ 
 ; cycle <<  
-extrn carMiddle:word
-extrn carRight:word
-extrn carLeft:word
 drawCar:
     mov AX, posX
     mov hX, AX
