@@ -18,7 +18,7 @@ donnees segment public  ; ******* Segment de donnees **********
 ; +++++++++++++++++++++++++++++++++++++++++++++
 ; ============- GAME ICONS =====================
 
-extrn splash:word
+;extrn splash:word
 extrn map:word
 extrn carMiddle:word
 extrn carRight:word
@@ -47,7 +47,7 @@ prog:
 	mov DS, AX
 
 	CALL Video13h
-    mov tempo, 20
+    mov tempo, 5
     
     mov Rx, 100
     mov Ry, 20
@@ -58,7 +58,7 @@ prog:
 
 ; ========== Display Splash ===============
 displaySplash:
-    mov BX, offset splash
+    mov BX, offset map
     CALL drawIcon
     call WaitKey
     cmp userinput, ' '  ; Space bar
@@ -81,8 +81,8 @@ gameloop:
 ; =============================
 ;--------- drawMap ------------
 drawMap:
-    mov BX, offset carMiddle
-    call drawIcon
+    mov BX, offset map
+    call drawIconBig
     ret
 
 ;--------- drawCar ------------ 
@@ -98,7 +98,7 @@ drawCar:
 	CALL drawIcon
     RET
 dess1: 
-    mov BX, offset carMiddle  ; cycle = 1
+    mov BX, offset carLeft  ; cycle = 1
 	  CALL drawIcon
     RET
 
