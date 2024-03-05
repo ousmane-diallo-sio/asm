@@ -29,8 +29,10 @@ extrn carLeft:word
 ; +++++++++++++++++++++++++++++++++++++++++++++
 cycle DB  0
 direction DB 2
-posX  DW  5
-posY  DW  5
+mapPosX  DW  5
+mapPosY  DW  5
+carPosX DW 0
+carPosY DW 0
 obstacleYPos DW 0
 
 donnees ends    ; ********** FIN Segment de donnees ************
@@ -81,6 +83,10 @@ gameloop:
 ; =============================
 ;--------- drawMap ------------
 drawMap:
+    mov AX, mapPosX
+    mov hX, AX
+    mov AX, mapPosY
+    mov hY, AX
     mov BX, offset map
     call drawIconBig
     ret
@@ -88,9 +94,9 @@ drawMap:
 ;--------- drawCar ------------ 
 ; cycle <<  
 drawCar:
-    mov AX, posX
+    mov AX, carPosX
     mov hX, AX
-    mov AX, posY
+    mov AX, carPosY
     mov hY, AX
     cmp direction, 0  ; right
     jne drawCarLeft
@@ -118,24 +124,24 @@ dess1:
     RET
 
 ;------- docycle ---------------
-; >> posX, cycle
+; >> carPosX, cycle
 docycle:
     cmp direction, 0   ; move right
     jne moveL
-    inc posX
+    inc carPosX
     jmp cycle1
 moveL:                 ; move left
     cmp direction, 1
     jne moveU
-    dec posX
+    dec carPosX
     jmp cycle1
 moveU:
     cmp direction, 2
     jne moveD
-    dec posY
+    dec carPosY
     jmp cycle1
 moveD:
-    inc posY
+    inc carPosY
     
 cycle1:          ; change cycle 0-1
     cmp cycle, 0
@@ -182,10 +188,10 @@ noHit:
 ;------- isdead ---------------
 ; posX, posX >>
 isdead:
-    mov AX, posX
+    mov AX, mapPosX
     add AX, 13
     mov cCX, AX
-    mov AX, posY
+    mov AX, mapPosY
     add AX, 8
     mov cDX, AX
     call ReadPxl

@@ -60,8 +60,8 @@ ba51 DB   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ; +++++++++++++++++++++++++++++++++++++++++++++
 cycle DB  0
 direction DB 0
-posX  DW  5
-posY  DW  5
+mapPosX  DW  5
+mapPosY  DW  5
 
 donnees ends    ; ********** FIN Segment de donnees ************
 
@@ -102,9 +102,9 @@ gameloop:
 ;--------- dessine ------------ 
 ; cycle <<  
 drawCar:
-    mov AX, posX
+    mov AX, mapPosX
     mov hX, AX
-    mov AX, posY
+    mov AX, mapPosY
 	mov hY, AX
     cmp cycle, 0
     jne dess1            
@@ -121,20 +121,20 @@ dess1:
 docycle:
     cmp direction, 0   ; move right
     jne moveL
-    inc posX
+    inc mapPosX
     jmp cycle1
 moveL:                 ; move left
     cmp direction, 1
     jne moveU
-    dec posX
+    dec mapPosX
     jmp cycle1
 moveU:
     cmp direction, 2
     jne moveD
-    dec posY
+    dec mapPosY
     jmp cycle1
 moveD:
-    inc posY
+    inc mapPosY
     
 cycle1:          ; change cycle 0-1
     cmp cycle, 0
@@ -181,10 +181,10 @@ noHit:
 ;------- isdead ---------------
 ; posX, posX >>
 isdead:
-    mov AX, posX
+    mov AX, mapPosX
     add AX, 13
     mov cCX, AX
-    mov AX, posY
+    mov AX, mapPosY
     add AX, 8
     mov cDX, AX
     call ReadPxl
