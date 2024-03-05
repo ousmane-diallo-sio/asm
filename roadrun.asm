@@ -33,7 +33,10 @@ mapPosX  DW  5
 mapPosY  DW  5
 carPosX DW 0
 carPosY DW 0
-obstacleYPos DW 0
+obstaclePosX DW 50
+obstaclePosY DW 50
+obstacleSize DW 10
+obstacleTimer DW 0
 
 donnees ends    ; ********** FIN Segment de donnees ************
 
@@ -122,6 +125,16 @@ dess1:
     mov BX, offset carLeft  ; cycle = 1
 	  CALL drawIcon
     RET
+
+drawObstacle:
+    mov AX, carPosX
+    mov obstaclePosX, AX
+    mov AX, obstaclePosY
+    mov hY, AX
+    mov AX, obstacleSize
+    mov col, 8 ; color of the obstacle
+    call Rectangle
+    ret
 
 ;------- docycle ---------------
 ; >> carPosX, cycle
