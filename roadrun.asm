@@ -28,7 +28,7 @@ extrn carLeft:word
 ;               VARIABLES
 ; +++++++++++++++++++++++++++++++++++++++++++++
 cycle DB  0
-direction DB 0
+direction DB 2
 posX  DW  5
 posY  DW  5
 obstacleYPos DW 0
@@ -91,11 +91,26 @@ drawCar:
     mov AX, posX
     mov hX, AX
     mov AX, posY
-	  mov hY, AX
-    cmp cycle, 0
-    jne dess1            
-	mov BX, offset carMiddle  ; cycle = 0
-	CALL drawIcon
+    mov hY, AX
+    cmp direction, 0  ; right
+    jne drawCarLeft
+    call drawCarMiddle
+    jmp drawCarCall
+drawCarLeft:
+    cmp direction, 1  ; left
+    jne drawCarMiddle
+    mov BX, offset carLeft
+    jmp drawCarCall
+drawCarRight:
+    cmp direction, 2  ; up
+    jne drawCarMiddle
+    mov BX, offset carRight
+    jmp drawCarCall
+drawCarMiddle:
+    mov BX, offset carMiddle
+    jmp drawCarCall
+drawCarCall:
+    CALL drawIcon
     RET
 dess1: 
     mov BX, offset carLeft  ; cycle = 1
